@@ -1,17 +1,13 @@
 def solution(players, callings):
-    dic = {}
-    for i in range(len(players)):
-        dic[players[i]] = i
-    length = len(callings)
-    for i in range(length):
-        caller = callings[i]
-        callIdx = dic[caller]
-        before = players[callIdx-1]
-        beforeIdx = dic[before]
-        players[callIdx-1], players[callIdx] = players[callIdx], players[callIdx-1]
-        dic[caller] -= 1
-        dic[before] += 1
-        
+    # {'mumu': 0, 'soe': 1, 'poe': 2, 'kai': 3, 'mine': 4}
+    pla_dic = {key: idx for idx, key in enumerate(players)}
+    
+    for p in callings:
+        c = pla_dic[p]
+        pla_dic[p] -= 1
+        pla_dic[players[c-1]] += 1
+        players[c-1], players[c] = players[c], players[c-1]
+
     return players
 
     #시간초과: n제곱
